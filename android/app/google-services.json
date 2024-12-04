@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "505846794646",
+    "project_id": "reveria-c007f",
+    "storage_bucket": "reveria-c007f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:505846794646:android:caf531f6cefbbe11e5b5b7",
+        "android_client_info": {
+          "package_name": "com.example.reveria"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBsQ7Y-mKtjjZvfHTzcmRW6cB9tmFt9-I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

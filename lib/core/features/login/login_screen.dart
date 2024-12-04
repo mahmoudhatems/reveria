@@ -1,16 +1,19 @@
-
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+
+import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:reveria/core/features/login/widgets/app_logo_and_name.dart';
 import 'package:reveria/core/features/login/widgets/social_login.dart';
 import 'package:reveria/core/helpers/spacing.dart';
+
 import 'package:reveria/core/theming/colors.dart';
 import 'package:reveria/core/theming/styles.dart';
 import 'package:reveria/core/widgets/app_text_button.dart';
 import 'package:reveria/core/widgets/app_text_form_field.dart';
 import 'package:reveria/core/widgets/or_horizontal_divider.dart';
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -21,6 +24,13 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final formKey = GlobalKey<FormState>();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+
+
+
+
 
   bool isObscure = true;
   @override
@@ -43,6 +53,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Column(
                       children: [
                         AppTextFormField(
+                          validator: (Value) {
+                            if (Value=='') {
+                              return 'Please enter email';
+                            }
+                            return null;
+                          },
+                          controller: emailController,
                           hintText: "Email",
                           prefixIcon: Icon(
                             Icons.email_outlined,
@@ -53,6 +70,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         verticalSpace(20),
                         AppTextFormField(
+                          validator: (Value) {
+                            if (Value=='') {
+                              return 'Please enter Password';
+                            }
+                            return null;
+                          },
+                          controller: passwordController,
                           hintText: "Password",
                           obscureText: isObscure,
                           suffixIcon: GestureDetector(
@@ -88,11 +112,58 @@ class _LoginScreenState extends State<LoginScreen> {
                         AppTextButton(
                             textStyle: TextStyles.font16WhiteSemiBold,
                             buttonText: "Login",
-                            onPressed: () {}),
+                            onPressed: () async {
+                             if (formKey.currentState!.validate()) {
+                               try {
+                                final credential = await FirebaseAuth.instance
+                                    .signInWithEmailAndPassword(
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                   
+                                );Navigator.pushReplacementNamed(context, '/home');
+                              } 
+                              on FirebaseAuthException catch (e) {
+                                if (e.code == 'user-not-found') {
+                                  print('No user found for that email.');
+                                  Fluttertoast.showToast(
+                                      msg: 'No user found for that email.',
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.SNACKBAR,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: Colors.black54,
+                                      textColor: Colors.white,
+                                      fontSize: 14.0);
+                                } else if (e.code == 'wrong-password') {
+                                  print(
+                                      'Wrong password provided for that user.');
+                                        Fluttertoast.showToast(
+                                      msg: 'Wrong password provided for that user.',
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.SNACKBAR,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: Colors.black54,
+                                      textColor: Colors.white,
+                                      fontSize: 14.0);
+                                      
+                                }
+                                else {
+                                  print('An error occurred');
+                                  Fluttertoast.showToast(
+                                      msg: 'An error occurred',
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.SNACKBAR,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: Colors.black54,
+                                      textColor: Colors.white,
+                                      fontSize: 14.0);
+                                }
+                              }
+                              }
+                            }),
                         verticalSpace(25),
                         const OrHorizontalDivider(),
                         verticalSpace(25),
-                       const SocialLogin(),
+                        const SocialLogin(),
                         verticalSpace(25),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -103,7 +174,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                Navigator.pushNamed(context, '/register');
+                                Navigator.pushReplacementNamed(
+                                    context, '/register');
                               },
                               child: Text(
                                 'Sign Up',

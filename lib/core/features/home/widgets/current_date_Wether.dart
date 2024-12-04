@@ -45,7 +45,7 @@ class WeatherAndDateWidget extends StatelessWidget {
                 children: [
                   Text(
                     weatherCondition,
-                    style: TextStyle(
+                    style:const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: ColorsManager.textTeal,

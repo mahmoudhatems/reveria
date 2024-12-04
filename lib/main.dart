@@ -6,7 +6,6 @@ import 'package:reveria/reveria_app.dart';
 
 
 
-
 void main()async 
 {
   WidgetsFlutterBinding.ensureInitialized();

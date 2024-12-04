@@ -1,9 +1,10 @@
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:reveria/core/features/login/widgets/app_logo_and_name.dart';
 import 'package:reveria/core/features/login/widgets/social_login.dart';
 import 'package:reveria/core/helpers/spacing.dart';
+import 'package:reveria/core/service/auth_service.dart';
 import 'package:reveria/core/theming/colors.dart';
 import 'package:reveria/core/theming/styles.dart';
 import 'package:reveria/core/widgets/app_text_button.dart';
@@ -20,6 +21,9 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final formKey = GlobalKey<FormState>();
   bool isObscure = true;
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +56,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: Column(
                     children: [
                       AppTextFormField(
+                        validator: (Value) {
+                            if (Value=='') {
+                              return 'Please enter Your Name';
+                            }
+                            return null;
+                          },
+                        controller: nameController,
                         hintText: "Your Name",
                         prefixIcon: Icon(
                           Icons.person_outline,
@@ -61,6 +72,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       verticalSpace(16),
                       AppTextFormField(
+                        validator: (Value) {
+                            if (Value=='') {
+                              return 'Please enter email';
+                            }
+                            return null;
+                          },
+                        controller: emailController,
                         hintText: "Your Email",
                         prefixIcon: Icon(
                           Icons.email_outlined,
@@ -70,6 +88,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       verticalSpace(16),
                       AppTextFormField(
+                        validator: (Value) {
+                            if (Value=='') {
+                              return 'Please enter Password';
+                            }
+                            return null;
+                          },
+                        controller: passwordController,
                         hintText: "Password",
                         obscureText: isObscure,
                         prefixIcon: Icon(
@@ -96,10 +121,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       AppTextButton(
                         textStyle: TextStyles.font16WhiteSemiBold,
                         buttonText: "Create Account",
-                        onPressed: () {
-                          if (formKey.currentState?.validate() ?? false) {
-                            // Handle form submission
-                          }
+                        onPressed: () async {
+                        if (formKey.currentState!.validate()){
+                            try {
+                            final credential = await FirebaseAuth.instance
+                                .createUserWithEmailAndPassword(
+                              email: emailController.text,
+                              password: passwordController.text,
+                            );
+                             Navigator.pushReplacementNamed(context, '/home');
+                          } on FirebaseAuthException catch (e) {
+                            if (e.code == 'weak-password') {
+                              print('The password provided is too weak.');
+                            } else if (e.code == 'email-already-in-use') {
+                              print(
+                                  'The account already exists for that email.');
+                            }
+                          } catch (e) {
+                            print(e);
+                          } 
+
+                        }
                         },
                       ),
                     ],

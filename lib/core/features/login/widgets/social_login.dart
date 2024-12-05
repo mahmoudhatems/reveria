@@ -40,20 +40,23 @@ class _SocialLoginButtonState extends State<SocialLoginButton> {
           border: Border.all(color: ColorsManager.lightGray, width: 1.3.w),
           borderRadius: BorderRadius.circular(16.r),
         ),
-        child: Row(
-          children: [
-            SvgPicture.asset(
-              widget.iconPath,
-              height: 30.h,
-            ),
-            SizedBox(width: 12.w),
-            Text(
-              widget.text,
-              style:  TextStyles.font14LightGrayRegular.copyWith(
-                fontWeight: FontWeight.w500,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row( mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SvgPicture.asset(
+                widget.iconPath,
+                height: 30.h,
               ),
-            ),
-          ],
+              SizedBox(width: 20.w),
+              Text(
+                widget.text,
+                style:  TextStyles.font14LightGrayRegular.copyWith(
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

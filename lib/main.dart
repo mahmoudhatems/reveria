@@ -5,6 +5,7 @@ import 'package:reveria/core/routing/app_router.dart';
 import 'package:reveria/reveria_app.dart';
 
 
+
 void main()async 
 {
   WidgetsFlutterBinding.ensureInitialized();

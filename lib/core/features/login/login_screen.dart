@@ -163,7 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         verticalSpace(25),
                         const OrHorizontalDivider(),
                         verticalSpace(25),
-                        const SocialLogin(),
+                        const SocialLogin(),////////////////////////////////////// google sign in 
                         verticalSpace(25),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,

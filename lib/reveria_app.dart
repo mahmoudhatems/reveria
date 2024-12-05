@@ -40,6 +40,7 @@ class _ReveriaState extends State<Reveria> {
       designSize: const Size(390, 844),
       minTextAdapt: true,
       child: MaterialApp(
+        
         home: FirebaseAuth.instance.currentUser ==null ?LoginScreen():HomeScreen(),
         title: Strings.appTitle,
         theme: ThemeData(

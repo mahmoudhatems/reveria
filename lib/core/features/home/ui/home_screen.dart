@@ -202,8 +202,6 @@ return SafeArea(
           const SizedBox(height: 16),
           _buildStepCounter(),
           const SizedBox(height: 16),
-          _buildMoodTracker(),
-          const SizedBox(height: 16),
           _buildDietarySuggestions(),
           const SizedBox(height: 16),
           _buildMedicationReminder(),

@@ -87,11 +87,12 @@ class MemoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: ColorsManager.primaryColorbackLight,
       margin: EdgeInsets.symmetric(vertical: 8.h),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16.r),
       ),
-      elevation: 4,
+      elevation: 0,
       child: Padding(
         padding: EdgeInsets.all(12.h),
         child: Row(
@@ -101,8 +102,8 @@ class MemoryCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(12.r),
               child: Image.asset(
                 imageUrl,
-                width: 50.w,
-                height: 50.h,
+                width: 70.w,
+                height: 70.h,
                 fit: BoxFit.cover,
               ),
             ),

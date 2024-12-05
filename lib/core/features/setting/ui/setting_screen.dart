@@ -31,7 +31,7 @@ class SettingScreen extends StatelessWidget {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: ColorsManager.primaryColorTeal,
+                color: ColorsManager.primaryColorTealDark,
               ),
             ),
             const SizedBox(height: 32),
@@ -88,7 +88,7 @@ class SettingScreen extends StatelessWidget {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: ColorsManager.primaryColorTeal,
+                color: ColorsManager.primaryColorTealDark,
               ),
             ),
             const SizedBox(height: 16),
@@ -163,19 +163,24 @@ class SettingScreen extends StatelessWidget {
                 'Select your preferred language',
                 style: TextStyle(fontSize: 14, color: ColorsManager.textGray),
               ),
-              trailing: DropdownButton<String>(
-                underline: const SizedBox(),
-                value: 'English', // Default language
-                icon: Icon(Icons.arrow_drop_down, color: ColorsManager.primaryColorTeal),
-                items: ['English', 'Español', 'Français', 'عربي']
-                    .map((language) => DropdownMenuItem(
-                          value: language,
-                          child: Text(language),
-                        ))
-                    .toList(),
-                onChanged: (String? value) {
-                  // Handle language selection
-                },
+              trailing: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: DropdownButton<String>(
+                  dropdownColor: ColorsManager.white,
+                  
+                  underline: const SizedBox(),
+                  value: 'English', // Default language
+                  icon: Icon(Icons.arrow_drop_down, color: ColorsManager.primaryColorTeal),
+                  items: ['English', 'Español', 'Français', 'عربي']
+                      .map((language) => DropdownMenuItem(
+                            value: language,
+                            child: Text(language),
+                          ))
+                      .toList(),
+                  onChanged: (String? value) {
+                    // Handle language selection
+                  },
+                ),
               ),
             ),
             const SizedBox(height: 32),
@@ -186,7 +191,7 @@ class SettingScreen extends StatelessWidget {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: ColorsManager.primaryColorTeal,
+                color: ColorsManager.primaryColorTealDark,
               ),
             ),
             const SizedBox(height: 16),

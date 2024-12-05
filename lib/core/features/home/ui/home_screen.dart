@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<Widget> _screens = [
     const HomeTab(),
-    const MemoryAidScreen(),
+     MemoryAidScreen(),
     const SettingScreen(),
   ];
 

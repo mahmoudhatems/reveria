@@ -16,19 +16,19 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: ColorsManager.primaryColorbackLight,
+      backgroundColor: ColorsManager.white,
       elevation: 0,
       leading: Padding(
-        padding: EdgeInsets.all(8.0.r),
+        padding: EdgeInsets.symmetric(vertical: 8.0.r, horizontal: 2.0.r),
         child: SvgPicture.asset(
-          'assets/svgs/app icon.svg', // Replace with your app icon path
-          fit: BoxFit.cover,
+          'assets/svgs/app icon.svg',width: 30.w,
+          fit: BoxFit.contain,
         ),
       ),
       title: Text(
         title,
         style: TextStyle(
-          fontSize: 20.sp,
+          fontSize: 24.sp,
           fontWeight: FontWeight.bold,
           color: ColorsManager.primaryColorTeal,
         ),
@@ -75,8 +75,8 @@ class _ProfilePreviewState extends State<ProfilePreview> {
           child: Padding(
             padding: EdgeInsets.all(8.0.r),
             child: CircleAvatar(
-              backgroundImage: AssetImage('assets/images/my victor.jpg'), // Replace with your profile image path
-              radius: 20.r,
+              backgroundImage: const AssetImage('assets/images/my victor.jpg'),
+              radius: 30.r,
             ),
           ),
         ),

@@ -9,7 +9,6 @@ import 'package:reveria/core/helpers/spacing.dart';
 import 'package:reveria/core/theming/colors.dart';
 import 'package:reveria/core/widgets/custom_app_bar.dart';
 
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -22,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<Widget> _screens = [
     const HomeTab(),
-     MemoryAidScreen(),
+    MemoryAidScreen(),
     const SettingScreen(),
   ];
 
@@ -141,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
         tabs: const [
           GButton(icon: Icons.home, text: 'Home'),
-          GButton(icon: Icons.lightbulb , text: 'Memory Aid'),
+          GButton(icon: Icons.lightbulb, text: 'Memory Aid'),
           GButton(icon: Icons.settings, text: 'Settings'),
         ],
         selectedIndex: _currentIndex,
@@ -155,8 +154,30 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class HomeTab extends StatelessWidget {
+class HomeTab extends StatefulWidget {
   const HomeTab({Key? key}) : super(key: key);
+
+  @override
+  State<HomeTab> createState() => _HomeTabState();
+}
+
+class _HomeTabState extends State<HomeTab> {
+
+   int _currentGlasses = 0;
+  final int _dailyGoal = 8;
+
+  /// Increments the water intake counter.
+  void _addWaterGlass() {
+    if (_currentGlasses < _dailyGoal) {
+      setState(() {
+        _currentGlasses++;
+      });
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Daily water intake goal reached!')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -165,27 +186,34 @@ class HomeTab extends StatelessWidget {
       "Doctor's appointment at 3:00 PM",
       "Call Hatem about the meeting",
     ];
-
-    return SafeArea(
-      child: SingleChildScrollView(
-        padding: EdgeInsets.all(16.h),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const WeatherAndDateWidget(),
-            verticalSpace(10),
-            _buildOverviewHeader(),
-            const SizedBox(height: 16),
-            buildRoutineTrackerCard(hoursTracked: 15),
-            const SizedBox(height: 16),
-            _buildRemindersSection(reminders),
-          ],
-        ),
+return SafeArea(
+    child: SingleChildScrollView(
+      padding: EdgeInsets.all(16.h),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const WeatherAndDateWidget(),
+          verticalSpace(10),
+          _buildOverviewHeader(),
+          const SizedBox(height: 16),
+          buildRoutineTrackerCard(hoursTracked: 15),
+          const SizedBox(height: 16),
+          _buildWaterIntakeTracker(),
+          const SizedBox(height: 16),
+          _buildStepCounter(),
+          const SizedBox(height: 16),
+          _buildMoodTracker(),
+          const SizedBox(height: 16),
+          _buildDietarySuggestions(),
+          const SizedBox(height: 16),
+          _buildMedicationReminder(),
+          const SizedBox(height: 16),
+        ],
       ),
-    );
+    ),
+  );
   }
 
-  /// Builds the "Overview" header with an action button.
   Widget _buildOverviewHeader() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -211,8 +239,244 @@ class HomeTab extends StatelessWidget {
       ],
     );
   }
+Widget _buildWaterIntakeTracker() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Water Intake",
+          style: TextStyle(
+            fontSize: 20.sp,
+            fontWeight: FontWeight.bold,
+            color: ColorsManager.textTeal,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "$_currentGlasses/$_dailyGoal glasses",
+              style: TextStyle(fontSize: 16.sp, color: ColorsManager.textGray),
+            ),
+            TextButton(
+              onPressed: _addWaterGlass,
+              child: Text(
+                "Add Glass",
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  color: ColorsManager.primaryColorTeal,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
 
-  /// Builds the "Reminders" section with a list of items.
+Widget _buildStepCounter() {
+  int _currentSteps = 4000; // Replace with actual step tracking logic.
+  int _dailyStepGoal = 10000;
+
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        "Step Counter",
+        style: TextStyle(
+          fontSize: 20.sp,
+          fontWeight: FontWeight.bold,
+          color: ColorsManager.textTeal,
+        ),
+      ),
+      const SizedBox(height: 8),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "$_currentSteps/$_dailyStepGoal steps",
+            style: TextStyle(fontSize: 16.sp, color: ColorsManager.textGray),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              // Integrate actual step tracker.
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text("Step tracking coming soon!")),
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: ColorsManager.primaryColorTeal,
+            ),
+            child: Text(
+              "View Details",
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ],
+      ),
+    ],
+  );
+}
+Widget _buildMoodTracker() {
+  String _currentMood = "Happy"; // Replace with mood tracking logic.
+
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        "Mood Tracker",
+        style: TextStyle(
+          fontSize: 20.sp,
+          fontWeight: FontWeight.bold,
+          color: ColorsManager.textTeal,
+        ),
+      ),
+      const SizedBox(height: 8),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "Current Mood: $_currentMood",
+            style: TextStyle(fontSize: 16.sp, color: ColorsManager.textGray),
+          ),
+          TextButton(
+            onPressed: () {
+              // Open a dialog or navigation for mood selection.
+            },
+            child: Text(
+              "Log Mood",
+              style: TextStyle(
+                fontSize: 14.sp,
+                color: ColorsManager.primaryColorTeal,
+              ),
+            ),
+          ),
+        ],
+      ),
+    ],
+  );
+}
+Widget _buildDietarySuggestions() {
+  final suggestions = [
+    "Drink a glass of water before every meal.",
+    "Include more greens in your diet.",
+    "Limit sugar intake to stay energized."
+  ];
+
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        "Dietary Suggestions",
+        style: TextStyle(
+          fontSize: 20.sp,
+          fontWeight: FontWeight.bold,
+          color: ColorsManager.textTeal,
+        ),
+      ),
+      const SizedBox(height: 8),
+      ListView.builder(
+        shrinkWrap: true,
+        itemCount: suggestions.length,
+        itemBuilder: (context, index) {
+          return Container(
+            margin: const EdgeInsets.symmetric(vertical: 8.0),
+            padding: EdgeInsets.all(8.r),
+            decoration: BoxDecoration(
+              color: ColorsManager.primaryColorbackLight,
+              borderRadius: BorderRadius.circular(16.r),
+            ),
+            child: Text(
+              suggestions[index],
+              style: TextStyle(fontSize: 16.sp, color: ColorsManager.textGray),
+            ),
+          );
+        },
+      ),
+    ],
+  );
+}
+Widget _buildMedicationReminder() {
+  final medications = [
+    {"name": "Vitamin D", "time": "8:00 AM"},
+    {"name": "Blood Pressure Pills", "time": "2:00 PM"},
+  ];
+
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        "Medication Reminder",
+        style: TextStyle(
+          fontSize: 20.sp,
+          fontWeight: FontWeight.bold,
+          color: ColorsManager.textTeal,
+        ),
+      ),
+      const SizedBox(height: 8),
+      ListView.builder(
+        shrinkWrap: true,
+        itemCount: medications.length,
+        itemBuilder: (context, index) {
+          return Container(
+            margin: const EdgeInsets.symmetric(vertical: 8.0),
+            decoration: BoxDecoration(
+              color: ColorsManager.primaryColorbackLight,
+              borderRadius: BorderRadius.circular(16.r),
+            ),
+            child: ListTile(
+              title: Text(
+                medications[index]["name"]!,
+                style: TextStyle(fontSize: 16.sp),
+              ),
+              subtitle: Text(
+                medications[index]["time"]!,
+                style: TextStyle(fontSize: 14.sp, color: ColorsManager.textGray),
+              ),
+              leading: const Icon(
+                Icons.medical_services,
+                color: ColorsManager.primaryColorTeal,
+              ),
+            ),
+          );
+        },
+      ),
+    ],
+  );
+}
+Widget _buildHealthScoreSummary() {
+  int _healthScore = 85; // Example score.
+
+  return Container(
+    padding: EdgeInsets.all(16.r),
+    decoration: BoxDecoration(
+      color: ColorsManager.primaryColorbackLight,
+      borderRadius: BorderRadius.circular(16.r),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Health Score",
+          style: TextStyle(
+            fontSize: 20.sp,
+            fontWeight: FontWeight.bold,
+            color: ColorsManager.textTeal,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          "Your health score today: $_healthScore",
+          style: TextStyle(fontSize: 16.sp, color: ColorsManager.textGray),
+        ),
+      ],
+    ),
+  );
+}
+
+
+
   Widget _buildRemindersSection(List<String> reminders) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -227,7 +491,7 @@ class HomeTab extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         ListView.builder(
-          physics: const NeverScrollableScrollPhysics(), // Prevents nested scrolling
+          physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: reminders.length,
           itemBuilder: (context, index) {

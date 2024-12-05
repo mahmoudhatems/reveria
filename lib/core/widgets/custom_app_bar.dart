@@ -96,11 +96,11 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(8.r),
-                    boxShadow: [
-                      BoxShadow(
+                    boxShadow:const [
+                       BoxShadow(
                         color: Colors.black12,
                         blurRadius: 6,
-                        offset: Offset(0, 4),
+                        offset:  Offset(0, 4),
                       ),
                     ],
                   ),

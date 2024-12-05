@@ -52,8 +52,9 @@ class MemoryAidScreen extends StatelessWidget {
     return Scaffold(
     
       body: Padding(
-        padding: EdgeInsets.all(16.h),
+        padding: EdgeInsets.symmetric(vertical: 0.h),
         child: ListView.builder(
+          clipBehavior: Clip.antiAlias,
           itemCount: memoryList.length,
           itemBuilder: (context, index) {
             var memory = memoryList[index];
@@ -87,7 +88,7 @@ class MemoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: ColorsManager.primaryColorbackLight,
+      color: const Color.fromARGB(255, 240, 240, 247).withOpacity(0.4),
       margin: EdgeInsets.symmetric(vertical: 8.h),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16.r),

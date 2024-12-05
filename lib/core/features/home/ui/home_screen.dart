@@ -141,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
         tabs: const [
           GButton(icon: Icons.home, text: 'Home'),
-          GButton(icon: Icons.memory, text: 'Memory Aid'),
+          GButton(icon: Icons.lightbulb , text: 'Memory Aid'),
           GButton(icon: Icons.settings, text: 'Settings'),
         ],
         selectedIndex: _currentIndex,

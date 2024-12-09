@@ -8,7 +8,9 @@ import 'package:reveria/reveria_app.dart';
 
 void main()async 
 {
+  
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(Reveria(appRouter: AppRouter()));
+
 }

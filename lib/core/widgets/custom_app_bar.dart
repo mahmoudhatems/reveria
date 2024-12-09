@@ -29,8 +29,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         title,
         style: TextStyle(
           fontSize: 24.sp,
-          fontWeight: FontWeight.bold,
-          color: ColorsManager.primaryColorTeal,
+          fontWeight: FontWeight.w600,
+          color: ColorsManager.primaryColorTealDark,
         ),
       ),
       centerTitle: true,
@@ -96,11 +96,11 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(8.r),
-                    boxShadow: [
-                      BoxShadow(
+                    boxShadow:const [
+                       BoxShadow(
                         color: Colors.black12,
                         blurRadius: 6,
-                        offset: Offset(0, 4),
+                        offset:  Offset(0, 4),
                       ),
                     ],
                   ),
